@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	function fn_insert() {
+
+		var col01 = $("#col01").val();
+		var col02 = $("#col02").val();
+		var col03 = $("#col03").val();
+
+		$.ajax({
+			url : 'smp_insert',
+			type : 'POST',
+			data : {
+				'col01' : col01,
+				'col02' : col02,
+				'col03' : col03,
+			},
+			datatype : 'json',
+			success : function(data) {
+				console.log(data.msg);
+				if (data.msg == "ok") {
+					location.reload();
+				} else {
+					alert("추가 도중 문제가 발생했습니다.")
+				}
+			}
+		});
+	}
+
+	function fn_update() {
+		var col01 = $("#col01").val();
+		var col02 = $("#col02").val();
+		var col03 = $("#col03").val();
+
+		$.ajax({
+			url : 'smp_update',
+			type : 'POST',
+			data : {
+				'col01' : col01,
+				'col02' : col02,
+				'col03' : col03,
+			},
+			datatype : 'json',
+			success : function(data) {
+				console.log(data.msg);
+				if (data.msg == "ok") {
+					location.reload();
+				} else {
+					alert("수정 도중 문제가 발생했습니다.")
+				}
+			}
+		});
+	}
+
+	function fn_delete() {
+		var flag = confirm("정말 삭제하시겠습니까? 한번 삭제한 데이터는 복원할 수 없습니다.");
+		var col01 = $("#col01").val();
+		if (!flag) {
+			return;
+		}
+		$.ajax({
+			url : 'smp_delete',
+			type : 'POST',
+			data : {
+				'col01' : col01
+			},
+			datatype : 'json',
+			success : function(data) {
+				console.log(data.msg);
+				if (data.msg == "ok") {
+					location.reload();
+				} else {
+					alert("삭제 도중 문제가 발생했습니다.");
+				}
+			}
+		});
+
+	}
+
+	function setData(col01, col02, col03) {
+
+		$("#col01").val(col01);
+		$("#col02").val(col02);
+		$("#col03").val(col03);
+	}
+</script>
+</head>
+<body>
+
+
+	{% if smpList %}
+	<table border="1px">
+		<tr>
+			<th>col 01</th>
+			<th>col 02</th>
+			<th>col 03</th>
+		</tr>
+		{% for i in smpList %}
+		<tr>
+			<td><a
+				href="javascript:setData('{{i.col01}}','{{i.col02}}','{{i.col03}}')">{{i.col01}}</a></td>
+			<td>{{i.col02}}</td>
+			<td>{{i.col03}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+	<br>
+
+	<table border="1">
+		<tr>
+			<td>col01</td>
+			<td><input type="text" id="col01"></td>
+		</tr>
+		<tr>
+			<td>col02</td>
+			<td><input type="text" id="col02"></td>
+		</tr>
+		<tr>
+			<td>col03</td>
+			<td><input type="text" id="col03"></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="button" value="추가"
+				onclick="fn_insert()"> <input type="button" value="수정"
+				onclick="fn_update()"> <input type="button" value="삭제"
+				onclick="fn_delete()"></td>
+		</tr>
+	</table>
+
+</body>
+</html>

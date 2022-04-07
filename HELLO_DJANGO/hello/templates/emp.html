@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	function fn_insert() {
+
+		var e_id = $("#e_id").val();
+		var e_name = $("#e_name").val();
+		var sex = $("#sex").val();
+		var addr = $("#addr").val();
+
+		$.ajax({
+			url : 'ajax_insert',
+			type : 'POST',
+			data : {
+				'e_id' : e_id,
+				'e_name' : e_name,
+				'sex' : sex,
+				'addr' : addr
+			},
+			datatype : 'json',
+			success : function(data) {
+				console.log(data.msg);
+				if (data.msg == "ok") {
+					location.reload();
+				} else {
+					alert("추가 도중 문제가 발생했습니다.")
+				}
+			}
+		});
+	}
+
+	function fn_update() {
+		var e_id = $("#e_id").val();
+		var e_name = $("#e_name").val();
+		var sex = $("#sex").val();
+		var addr = $("#addr").val();
+
+		$.ajax({
+			url : 'ajax_update',
+			type : 'POST',
+			data : {
+				'e_id' : e_id,
+				'e_name' : e_name,
+				'sex' : sex,
+				'addr' : addr
+			},
+			datatype : 'json',
+			success : function(data) {
+				console.log(data.msg);
+				if (data.msg == "ok") {
+					location.reload();
+				} else {
+					alert("수정 도중 문제가 발생했습니다.")
+				}
+			}
+		});
+	}
+
+	function fn_delete() {
+		var flag = confirm("정말 삭제하시겠습니까? 한번 삭제한 데이터는 복원할 수 없습니다.");
+		var e_id = $("#e_id").val();
+		if (!flag) {
+			return;
+		}
+		$.ajax({
+			url : 'ajax_delete',
+			type : 'POST',
+			data : {
+				'e_id' : e_id
+			},
+			datatype : 'json',
+			success : function(data) {
+				console.log(data.msg);
+				if (data.msg == "ok") {
+					location.reload();
+				} else {
+					alert("삭제 도중 문제가 발생했습니다.");
+				}
+			}
+		});
+
+	}
+
+	function setData(e_id, e_name, sex, addr) {
+		/* 	document.querySelector("#e_id").value = e_id;
+		 document.querySelector("#e_name").value = e_name;
+		 document.querySelector("#sex").value = sex;
+		 document.querySelector("#addr").value = addr; */
+
+		$("#e_id").val(e_id);
+		$("#e_name").val(e_name);
+		$("#sex").val(sex);
+		$("#addr").val(addr);
+	}
+</script>
+</head>
+<body>
+
+
+	{% if mylist %}
+	<table border="1px">
+		<tr>
+			<th>아이디</th>
+			<th>이름</th>
+			<th>성별</th>
+			<th>주소</th>
+		</tr>
+		{% for i in mylist %}
+		<tr>
+			<td><a
+				href="javascript:setData('{{i.e_id}}','{{i.e_name}}','{{i.sex}}','{{i.addr}}')">{{i.e_id}}</a></td>
+			<td>{{i.e_name}}</td>
+			<td>{{i.sex}}</td>
+			<td>{{i.addr}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+	<br>
+
+	<table border="1">
+		<tr>
+			<td>아이디</td>
+			<td><input type="text" id="e_id"></td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td><input type="text" id="e_name"></td>
+		</tr>
+		<tr>
+			<td>성별</td>
+			<td><input type="text" id="sex"></td>
+		</tr>
+		<tr>
+			<td>주소</td>
+			<td><input type="text" id="addr"></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="button" value="추가"
+				onclick="fn_insert()"> <input type="button" value="수정"
+				onclick="fn_update()"> <input type="button" value="삭제"
+				onclick="fn_delete()"></td>
+		</tr>
+	</table>
+
+</body>
+</html>

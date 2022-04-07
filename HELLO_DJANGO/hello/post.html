@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="http://127.0.0.1:8000/param" method="post">
+{% csrf_token %} 
+	<input type="text" name="a">
+	<input type="submit" value="전송">
+</form>
+
+</body>
+</html>

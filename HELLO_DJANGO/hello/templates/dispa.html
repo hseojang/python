@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	{% if a %}
+	<p>{{ a }}</p>
+	{% endif %}
+	
+	{% if b %}
+	{% for bb in b %}
+	<p>{{ bb }}</p>
+	{% endfor %}
+	{% endif %}
+	
+	{% if c %}
+	<table style=" border:1px solid black">
+	<tr>
+		<th>아이디</th>
+		<th>이름</th>
+		<th>성별</th>
+		<th>주소</th>
+    </tr>
+	{% for cc in c %}
+	<tr>
+		<td>{{cc.e_id}}</td>
+		<td>{{cc.e_name}}</td>
+		<td style="text-align:center">{{cc.sex}}</td>
+		<td>{{cc.addr}}</td>
+    </tr>
+	{% endfor %}
+	</table>
+	{% endif %}
+	
+
+</body>
+</html>
