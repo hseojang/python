@@ -16,4 +16,6 @@ urlpatterns = [
     path('smp_insert', viewssample.smp_insert, name='smp_insert'),
     path('smp_update', viewssample.smp_update, name='smp_update'),
     path('smp_delete', viewssample.smp_delete, name='smp_delete'),
+    path('ajax_sync', viewssample.ajax_sync, name='ajax_sync'),
+    path('axios_sync', viewssample.axios_sync, name='axios_sync'),
 ]

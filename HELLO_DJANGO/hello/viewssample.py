@@ -53,3 +53,18 @@ def smp_delete(request):
     context={'msg': msg}
     return JsonResponse(context)
 
+
+def axios_sync(request):
+    col01= request.GET.get("col01", -1)
+    icol01 = int(col01)
+    icol01 += 1
+    context = {'col01' : icol01}
+    return JsonResponse(context)
+
+def ajax_sync(request):
+    col01= request.POST["col01"]
+    icol01 = int(col01)
+    icol01 += 1
+    context = {'col01' : icol01}
+    return JsonResponse(context)
+

@@ -4,7 +4,49 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
+	
+	async function fn_axios() {
+		var col01	= '1';
+
+        var res = await axios({
+        	// await는 비동기 함수를 동기로 사용한다
+            method:"GET",
+            url: 'axios_sync',
+            params: {
+               'col01':col01
+            }
+        });
+        col01 = res.data.col01;
+        console.log(col01);
+
+	}
+	
+	function fn_ajax() {
+		var col01 = "1";
+		
+		for(var i=0; i<100; i++) {
+		$.ajax({
+			url : 'ajax_sync',
+			type : 'POST',
+			data : {
+				'col01' : col01
+			},
+			async : false,
+			datatype : 'json',
+			success : function(data) {
+				console.log('ajax:'+data.col01);
+				col01 = data.col01;
+			}
+		});
+		
+		console.log('col01:'+col01);
+		}
+
+}
+
+
 	function fn_insert() {
 
 		var col01 = $("#col01").val();
@@ -17,7 +59,7 @@
 			data : {
 				'col01' : col01,
 				'col02' : col02,
-				'col03' : col03,
+				'col03' : col03
 			},
 			datatype : 'json',
 			success : function(data) {
@@ -42,7 +84,7 @@
 			data : {
 				'col01' : col01,
 				'col02' : col02,
-				'col03' : col03,
+				'col03' : col03
 			},
 			datatype : 'json',
 			success : function(data) {
@@ -125,10 +167,13 @@
 			<td><input type="text" id="col03"></td>
 		</tr>
 		<tr>
-			<td colspan="2"><input type="button" value="추가"
-				onclick="fn_insert()"> <input type="button" value="수정"
-				onclick="fn_update()"> <input type="button" value="삭제"
-				onclick="fn_delete()"></td>
+			<td colspan="2">
+			<input type="button" value="추가" onclick="fn_insert()">
+			<input type="button" value="수정" onclick="fn_update()">
+			<input type="button" value="삭제" onclick="fn_delete()">
+			<input type="button" value="axios" onclick="fn_axios()">
+			<input type="button" value="ajax" onclick="fn_ajax()">
+			</td>
 		</tr>
 	</table>
 
