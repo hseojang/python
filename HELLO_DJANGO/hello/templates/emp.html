@@ -102,13 +102,16 @@
 
 
 	{% if mylist %}
-	<table border="1px">
+	<table border="1px" id="dataTb">
+		<thead>
 		<tr>
 			<th>아이디</th>
 			<th>이름</th>
 			<th>성별</th>
 			<th>주소</th>
 		</tr>
+		</thead>
+		<tbody>
 		{% for i in mylist %}
 		<tr>
 			<td><a
@@ -118,11 +121,12 @@
 			<td>{{i.addr}}</td>
 		</tr>
 		{% endfor %}
+		</tbody>
 	</table>
 	{% endif %}
 	<br>
 
-	<table border="1">
+	<table border="1" id="inputTb">
 		<tr>
 			<td>아이디</td>
 			<td><input type="text" id="e_id"></td>
